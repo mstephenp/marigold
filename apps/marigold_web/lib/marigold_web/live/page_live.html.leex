@@ -1,0 +1,27 @@
+<section class="phx-hero">
+  <h1><%= gettext "User Search" %></h1>
+
+  <form phx-change="suggest" phx-submit="search">
+    <input type="text" name="q" value="<%= @query %>" placeholder="User search" list="results" autocomplete="off"/>
+    <datalist id="results">
+      <%= for user <- @results do %>
+        <option value="<%= user %>"><%= user %></option>
+      <% end %>
+    </datalist>
+    <button type="submit" phx-disable-with="Searching...">Find User</button>
+  </form>
+<section class="row">
+  <%= @search_result %>
+</section>
+</section>
+<section class="row">
+  <article class="column">
+    <h2>Users</h2>
+    <ul>
+      <%= for {user, email} <- IO.inspect Marigold.get_users_and_emails do %>
+
+        <li><%= "#{user} : #{email}" %></li>
+      <% end %>
+  </article>
+  </article>
+</section>
